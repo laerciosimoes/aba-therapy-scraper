@@ -1,85 +1,113 @@
-# ABA Therapy Team Scraper
+# ABA Therapy Team Scraper 🚀
 
-A Python-based web scraper that automates the extraction of team member information from ABA therapy provider websites. It discovers "Team" pages for each provider, extracts member details (name, position, location), and consolidates the data into a final CSV.
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Build: pytest](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/laerciosimoes/aba-therapy-scraper/actions)
 
-## Features
+A versatile Python scraper that automates the discovery of "Team" pages on ABA therapy provider websites, extracts member details (Name, Position, Location) using LLM-driven pipelines, and consolidates everything into a single CSV for easy analysis.
 
-- **Contact Discovery**: Loads or generates a list of provider contacts (Name, URL, Location).
-- **Page Discovery**: Finds "Team" pages on each provider's site.
-- **Data Extraction**: Utilizes `SmartScraperGraph` and `SmartScraperMultiGraph` to extract team member details via LLM-driven pipelines.
-- **Interim Storage**: Saves raw JSON outputs per page for inspection.
-- **Consolidation**: Merges all extracted members into a single `final_team_members.csv`.
-- **Unit Testing**: Provides pytest suite for core extraction logic.
+## Table of Contents
 
-## Prerequisites
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Python 3.8 or higher
-- [Google Chrome](https://www.google.com/chrome/) (for Selenium)
-- A valid OpenAI API key
+## Features ✨
 
-## Installation
+- **Contact Discovery**: Load or generate a CSV of provider contacts (Name, URL, Location).
+- **Page Discovery**: Identify each provider’s "Team" page URL.
+- **LLM‑Driven Scraping**: Use `SmartScraperGraph` and `SmartScraperMultiGraph` (ScrapeGraphAI) for robust link and content extraction.
+- **Interim Outputs**: Store raw JSON per site for inspection and reprocessing.
+- **Consolidation**: Merge all member records into **`final_team_members.csv` — Consolidated results**.
+- **Unit Testing**: Built‑in pytest suite for core extraction logic.
 
-1. Clone this repository:
+## Prerequisites 🛠
+
+- **Python** 3.8+
+- **Google Chrome** (for Selenium WebDriver)
+- **ChromeDriver** matching your Chrome version
+- **OpenAI API Key** (set in `.env`)
+
+## Installation 🚀
+
+1. **Clone the repo**:
    ```bash
-   git clone https://github.com/yourusername/aba-therapy-scraper.git
+   git clone https://github.com/laerciosimoes/aba-therapy-scraper.git
    cd aba-therapy-scraper
    ```
-2. Create a virtual environment and install dependencies:
+2. **Set up a virtual environment**:
    ```bash
    python -m venv .venv
-   source .venv/bin/activate       # macOS/Linux
-   .\.venv\Scripts\activate      # Windows
+   source .venv/bin/activate   # macOS/Linux
+   .\.venv\Scripts\activate  # Windows
+   ```
+3. **Install dependencies**:
+   ```bash
    pip install -r requirements.txt
    ```
-3. Copy `.env.example` to `.env` and fill in your OpenAI API key:
-   ```ini
-   OPENAI_API_KEY=your_api_key_here
-   ```
-
-## Usage
-
-1. Ensure you have (or allow generation of) `data/contacts_list.csv`.
-2. Run the main script:
+4. **Configure your environment**:
    ```bash
-   python scraper_script_with_docs.py
+   cp .env.example .env
+   # then edit .env to add your OPENAI_API_KEY
    ```
-3. Outputs will be saved to `data/`:
-   - `pages_list.csv` &mdash; Discovered team page URLs
-   - `team_members_<site>*.json` &mdash; Raw JSON per site
-   - `final_team_members.csv` &mdash; Consolidated results
 
-## Project Structure
+## Usage ▶️
 
-```
-├── scraper_script_with_docs.py   # Main orchestrator script with docs
+1. Run the main script:
+   ```bash
+   python main.py
+   ```
+2. Check the `data/` folder for outputs:
+   - `contacts_list.csv`      — Provider directory exports
+   - `pages_list.csv`         — Detected "Team" page URLs
+   - `team_members_<site>.json` — Raw JSON per site
+   - **`final_team_members.csv` — Consolidated results**
+
+## Project Structure 📂
+
+```plaintext
+├── main.py                     # Entry point with full workflow
 ├── scrapper/
-│   ├── driverManager.py         # ChromeDriverManager for Selenium
-│   ├── ABATherapyScraper.py      # Logic to discover team page URLs
-│   └── TeamExtractor.py          # LLM-driven extraction logic
-├── data/                         # Input/output directory (CSV/JSON)
-├── notebooks/                    # Intermediate codes for testing and researching
+│   ├── driverManager.py        # Selenium ChromeDriver manager
+│   ├── ABATherapyScraper.py    # Discovers team page URLs
+│   └── TeamExtractor.py        # LLM‑powered extraction logic
+├── data/                       # Input (contacts) & outputs (pages, JSON, CSV)
 ├── tests/
-│   └── test_team_extractor.py    # Pytest suite for TeamExtractor
-├── requirements.txt              # Python dependencies
-└── .env.example                  # Example environment file
+│   └── test_team_extractor.py  # pytest suite for TeamExtractor
+├── requirements.txt            # Python dependencies
+├── .env.example                # Sample env file for API keys
+└── LICENSE                     # MIT License text
 ```
 
-## Testing
+## Testing ✅
 
-Run the pytest suite:
+Execute the pytest suite:
 ```bash
 pytest tests/
 ```
 
-## Contributing
+## Roadmap 🛣
 
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/my-feature`).
-3. Commit your changes (`git commit -m 'Add my feature'`).
-4. Push to the branch (`git push origin feature/my-feature`).
-5. Open a pull request.
+- 🔄 **Complete Coverage**: Loop through all 50 states (filter by state) to exhaustively capture providers.
+- ⚙️ **Optimize Scraping**: Integrate more Selenium fallbacks to reduce LLM token usage and costs.
+- 🌐 **Language Enforcement**: Force English extraction to avoid inconsistencies from non‑English pages.
+- 💡 **Retry Logic**: Add automated retries and backoff for transient failures.
+- 📊 **Analytics Dashboard**: Provide a summary report or visual dashboard of extracted data.
 
-## License
+## Contributing 🤝
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+1. Fork the repo & create a branch: `git checkout -b feature/my-feature`
+2. Commit your changes: `git commit -m "Add my feature"`
+3. Push: `git push origin feature/my-feature`
+4. Open a Pull Request.
+
+Please follow the [code of conduct](CODE_OF_CONDUCT.md).
+
+## License 📜
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
