@@ -1,0 +1,12 @@
+selenium
+pytest
+openai
+requests
+langchain
+langchain-openai
+openai
+python-dotenv
+langchain-core
+tqdm
+scrapegraphai
+
