@@ -153,8 +153,8 @@ Please adhere to the [Code of Conduct](CODE_OF_CONDUCT.md).
 - LinkedIn enrichment is gated behind **Personal Email**, which is typically obtained via a **Facebook profile** (not currently viable due to credit limitations).
 
 ### Sheets Created:
-- [ABA Therapy - 150 (150 enriched records)](https://docs.google.com/spreadsheets/d/1G_xMpMKMVcdz8jLJ3znFEMrXgvWhQKSPhvS03Qsc5_U/edit?usp=sharing)
-- [ABA Therapy (841 enriched records)](https://docs.google.com/spreadsheets/d/17_7jOArjskLWYYYBW8IlAAy-yVEqE7zXGc4P_M_4vMs/edit?usp=sharing)
+- [ABA Therapy (841 enriched records)] (https://docs.google.com/spreadsheets/d/1G_xMpMKMVcdz8jLJ3znFEMrXgvWhQKSPhvS03Qsc5_U/edit?usp=sharing)
+- [ABA Therapy - 150 (150 enriched records)] (https://docs.google.com/spreadsheets/d/17_7jOArjskLWYYYBW8IlAAy-yVEqE7zXGc4P_M_4vMs/edit?usp=sharing)
 
 ---
 
