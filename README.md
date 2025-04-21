@@ -1,10 +1,14 @@
 # ABA Therapy Team Scraper 🚀
 
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Build: pytest](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/laerciosimoes/aba-therapy-scraper/actions)
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
+[![Build: pytest](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/laerciosimoes/aba-therapy-scraper/actions)
 
-A versatile Python scraper that automates the discovery of "Team" pages on ABA therapy provider websites, extracts member details (Name, Position, Location) using LLM-driven pipelines, and consolidates everything into a single CSV for easy analysis.
+A powerful, LLM-driven Python scraper designed to automate the discovery of "Team" pages from ABA therapy provider websites. It extracts key team member information—**Name**, **Position**, and **Location**—and compiles everything into a structured CSV for easy analysis.
 
-## Table of Contents
+---
+
+## 📚 Table of Contents
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
@@ -14,100 +18,146 @@ A versatile Python scraper that automates the discovery of "Team" pages on ABA t
 - [Testing](#testing)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Enriched Data](#enriched-data)
 - [License](#license)
 
-## Features ✨
+---
 
-- **Contact Discovery**: Load or generate a CSV of provider contacts (Name, URL, Location).
-- **Page Discovery**: Identify each provider’s "Team" page URL.
-- **LLM‑Driven Scraping**: Use `SmartScraperGraph` and `SmartScraperMultiGraph` (ScrapeGraphAI) for robust link and content extraction.
-- **Interim Outputs**: Store raw JSON per site for inspection and reprocessing.
-- **Consolidation**: Merge all member records into **`final_team_members.csv` — Consolidated results**.
-- **Unit Testing**: Built‑in pytest suite for core extraction logic.
+## ✨ Features
 
-## Prerequisites 🛠
+- 🔍 **Contact Discovery**: Load or generate a CSV containing provider Name, Website, and Location.
+- 🌐 **Page Discovery**: Automatically identify and validate the “Team” or “About Us” pages.
+- 🧠 **LLM-Powered Extraction**: Uses `SmartScraperGraph` and `SmartScraperMultiGraph` (ScrapeGraphAI) to extract structured team member details.
+- 💾 **Intermediate Outputs**: Stores JSON snapshots of raw team member data per provider.
+- 📦 **Final Consolidation**: Merges extracted records into a single `final_team_members.csv` file.
+- ✅ **Built-in Testing**: Pytest suite available to validate core extraction logic.
 
-- **Python** 3.8+
-- **Google Chrome** (for Selenium WebDriver)
-- **ChromeDriver** matching your Chrome version
-- **OpenAI API Key** (set in `.env`)
+---
 
-## Installation 🚀
+## 🛠 Prerequisites
 
-1. **Clone the repo**:
+- **Python** 3.8 or newer  
+- **Google Chrome** (for Selenium)  
+- **ChromeDriver** matching your Chrome version  
+- **OpenAI API Key** (configured in `.env`)
+
+---
+
+## 🚀 Installation
+
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/laerciosimoes/aba-therapy-scraper.git
    cd aba-therapy-scraper
    ```
-2. **Set up a virtual environment**:
+
+2. **Create and activate a virtual environment**:
    ```bash
    python -m venv .venv
-   source .venv/bin/activate   # macOS/Linux
-   .\.venv\Scripts\activate  # Windows
+   source .venv/bin/activate        # macOS/Linux
+   .\.venv\Scripts\activate         # Windows
    ```
+
 3. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-4. **Configure your environment**:
+
+4. **Set up your environment**:
    ```bash
    cp .env.example .env
-   # then edit .env to add your OPENAI_API_KEY
+   # Edit .env and add your OPENAI_API_KEY
    ```
 
-## Usage ▶️
+---
 
-1. Run the main script:
+## ▶️ Usage
+
+1. Run the scraper:
    ```bash
    python main.py
    ```
-2. Check the `data/` folder for outputs:
-   - `contacts_list.csv`      — Provider directory exports
-   - `pages_list.csv`         — Detected "Team" page URLs
-   - `team_members_<site>.json` — Raw JSON per site
-   - **`final_team_members.csv` — Consolidated results**
 
-## Project Structure 📂
+2. Check the `data/` folder for generated files:
+   - `contacts_list.csv` — Source list of ABA therapy providers
+   - `pages_list.csv` — Discovered "Team" page URLs
+   - `team_members_<site>.json` — Raw extracted member data
+   - `final_team_members.csv` — ✅ Fully consolidated results
+
+---
+
+## 📂 Project Structure
 
 ```plaintext
-├── main.py                     # Entry point with full workflow
+├── main.py                            # Main entry script
 ├── scrapper/
-│   ├── driverManager.py        # Selenium ChromeDriver manager
-│   ├── ABATherapyScraper.py    # Discovers team page URLs
-│   └── TeamExtractor.py        # LLM‑powered extraction logic
-├── data/                       # Input (contacts) & outputs (pages, JSON, CSV)
+│   ├── driverManager.py               # Selenium ChromeDriver manager
+│   ├── ABATherapyScraper.py           # Discovers "Team" pages
+│   └── TeamExtractor.py               # Handles LLM-based content parsing
+├── data/                              # Input & output files
 ├── tests/
-│   └── test_team_extractor.py  # pytest suite for TeamExtractor
-├── requirements.txt            # Python dependencies
-├── .env.example                # Sample env file for API keys
-└── LICENSE                     # MIT License text
+│   ├── test_driverManager.py          # Test Selenium ChromeDriver manager
+│   ├── test_ABATherapyScraper.py      # Test Discovers "Team" pages
+│   └── test_TeamExtractor.py          # test Handles LLM-based content parsing
+├── requirements.txt                   # Python dependencies
+├── .env.example                       # Sample environment config
+└── LICENSE                            # MIT License
 ```
 
-## Testing ✅
+---
 
-Execute the pytest suite:
+## ✅ Testing
+
+To run the test suite:
+
 ```bash
 pytest tests/
 ```
 
-## Roadmap 🛣
+---
 
-- 🔄 **Complete Coverage**: Loop through all 50 states (filter by state) to exhaustively capture providers.
-- ⚙️ **Optimize Scraping**: Integrate more Selenium fallbacks to reduce LLM token usage and costs.
-- 🌐 **Language Enforcement**: Force English extraction to avoid inconsistencies from non‑English pages.
-- 💡 **Retry Logic**: Add automated retries and backoff for transient failures.
-- 📊 **Analytics Dashboard**: Provide a summary report or visual dashboard of extracted data.
+## 🛣 Roadmap
 
-## Contributing 🤝
+- 🔄 **Full Coverage**: Scrape providers in all 50 states with location filters.
+- ⚙️ **Efficiency Improvements**: Introduce more Selenium fallbacks to reduce LLM costs.
+- 🌐 **Language Standardization**: Force English for consistent parsing.
+- 🔁 **Retry & Backoff**: Add auto-retry logic for flaky or timeout-prone pages.
+- 📊 **Analytics Dashboard**: Build a lightweight visual dashboard to explore the extracted data.
 
-1. Fork the repo & create a branch: `git checkout -b feature/my-feature`
-2. Commit your changes: `git commit -m "Add my feature"`
-3. Push: `git push origin feature/my-feature`
-4. Open a Pull Request.
+---
 
-Please follow the [code of conduct](CODE_OF_CONDUCT.md).
+## 🤝 Contributing
 
-## License 📜
+1. Fork the repo and create a new feature branch:
+   ```bash
+   git checkout -b feature/my-feature
+   ```
+2. Commit your changes:
+   ```bash
+   git commit -m "Add my feature"
+   ```
+3. Push your branch:
+   ```bash
+   git push origin feature/my-feature
+   ```
+4. Submit a Pull Request!
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+Please adhere to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
+---
+
+## 📈 Enriched Data Notes
+
+- Using **Clay** with free credits to enrich contact information, including **Work Email** and **Company Details**.
+- Currently need ~1,800 credits to unlock **Mobile Numbers** (requires LinkedIn profile URL).
+- LinkedIn enrichment is gated behind **Personal Email**, which is typically obtained via a **Facebook profile** (not currently viable due to credit limitations).
+
+### Sheets Created:
+- [ABA Therapy - 150 (150 enriched records)](https://docs.google.com/spreadsheets/d/1G_xMpMKMVcdz8jLJ3znFEMrXgvWhQKSPhvS03Qsc5_U/edit?usp=sharing)
+- [ABA Therapy (841 enriched records)](https://docs.google.com/spreadsheets/d/17_7jOArjskLWYYYBW8IlAAy-yVEqE7zXGc4P_M_4vMs/edit?usp=sharing)
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
